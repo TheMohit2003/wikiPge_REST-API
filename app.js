@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const ejs = require('ejs')
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -18,11 +19,12 @@ async function main() {
 
 }
 
-const wikiSchema = new mongoose.Schema({
+const articleSchema = new mongoose.Schema({
     title:String,
     content:String
 })
-const Page = new mongoose.model("article",wikiSchema);
+const Article = new mongoose.model("Article",articleSchema);
+
 
 
 app.listen(3000,()=>{
