@@ -43,7 +43,7 @@ app.route("/articles")
         })
         newArticle.save((err) => {
             if (!err) {
-                res.send("sucess")
+                res.send("posted Sucessfully")
             } else {
                 res.send(err.message)
             }
@@ -53,7 +53,7 @@ app.route("/articles")
     .delete((req, res) => {
         Article.deleteMany({}, (err) => {
             if (!err) {
-                res.send("Deleted")
+                res.send("Deleted Successfully")
             } else {
                 res.send(err.message)
             }
@@ -69,11 +69,27 @@ app.route("/articles/:title")
         })
     })
     .put((req,res)=>{
-        Article.replaceOne(
+        Article.repalceOne(
             {title:req.params.title},
             {title:req.body.title,content:req.body.content},
             (err)=>{res.send("added")}
         )
+    })
+    .patch((req,res)=>{
+        Article.updateOne(
+            {title:req.params.title},
+            {$set:req.body},
+            (err)=>{
+                if(!err){res.send("updated successfully")}
+                else{res.send(err.message)}
+            }
+        )
+    })
+    .delete((req,res)=>{
+        Article.deleteOne({title:req.params.title},(err)=>{
+            if(!err){res.send("deleted sucessfully")}
+            else{res.send(err.message)}
+        })
     })
 
 app.listen(3000, () => {
